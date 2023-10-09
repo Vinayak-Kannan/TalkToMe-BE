@@ -21,7 +21,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+global profile_budget
 profile_budget = 500
+global desired_item_price
 desired_item_price = 1000
 
 prompt = """You are a NLP interface to a website. Your job is to read the users requests to you, ask follow up 
@@ -129,15 +131,21 @@ async def afford_desired_item():
 
 
 def get_budget_function(junk):
+    global profile_budget
     return profile_budget
 
 
 def update_budget_function(new_budget: int):
+    global profile_budget
     profile_budget = new_budget
     return "Successfully updated!"
 
 
 def afford_desired_item_function(junk):
+    global profile_budget
+    global desired_item_price
+    print(profile_budget)
+    print(desired_item_price)
     if profile_budget >= desired_item_price:
         return "You can afford the item!"
     else:
